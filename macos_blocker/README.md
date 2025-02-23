@@ -1,6 +1,6 @@
-# MacSiteBlock — System-Level Website Blocker
+# blocker — System-Level Website Blocker
 
-MacSiteBlock is a simple macOS script that blocks (or unblocks) specified domains at the **system level** by editing your `/etc/hosts` file. It’s especially useful for productivity, parental controls, or just limiting distractions.
+blocker is a simple macOS script that blocks (or unblocks) specified domains at the **system level** by editing your `/etc/hosts` file. It’s especially useful for productivity, parental controls, or just limiting distractions.
 
 ---
 
@@ -19,20 +19,20 @@ MacSiteBlock is a simple macOS script that blocks (or unblocks) specified domain
 1. **Clone or Download** this repository:
 
    ```bash
-   git clone https://github.com/yourusername/MacSiteBlock.git
-   cd MacSiteBlock
+   git clone https://github.com/yourusername/blocker.git
+   cd blocker
    ```
 
 2. **Make it executable**:
 
    ```bash
-   chmod +x MacSiteBlock.sh
+   chmod +x blocker.sh
    ```
 
 3. **Run with `sudo`:**
 
    ```bash
-   sudo ./MacSiteBlock.sh block example.com
+   sudo ./blocker.sh block example.com
    ```
 
    > **Note:** Always run with `sudo`, otherwise it can’t edit `/etc/hosts`.
@@ -42,7 +42,7 @@ MacSiteBlock is a simple macOS script that blocks (or unblocks) specified domain
 ## Basic Usage
 
 ```bash
-sudo ./MacSiteBlock.sh [command] [domains...]
+sudo ./blocker.sh [command] [domains...]
 ```
 
 - **block** `[domain ...]` — Block the specified domain(s).  
@@ -61,7 +61,7 @@ sudo ./MacSiteBlock.sh [command] [domains...]
 ## Tips & Reminders
 
 - **Close and reopen** your browsers after blocking or unblocking. Browsers cache DNS aggressively.  
-- If you want to automatically block `www.example.com` when blocking `example.com`, set `ALSO_BLOCK_WWW=true` inside `MacSiteBlock.sh`.  
+- If you want to automatically block `www.example.com` when blocking `example.com`, set `ALSO_BLOCK_WWW=true` inside `blocker.sh`.  
 - Check if **DNS over HTTPS** (DoH) or a **VPN** might bypass local DNS.  
 - To verify blocking quickly, run `ping example.com`. If it returns `127.0.0.1`, blocking is working.
 
