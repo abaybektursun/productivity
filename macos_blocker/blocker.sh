@@ -1,19 +1,19 @@
 #!/bin/bash
 #
-# MacSiteBlock - System Level Website Blocker (Revised)
+# blocker - System Level Website Blocker (Revised)
 # Version 2.0.0
 #
 # Must be run via sudo on macOS. Blocks domains by injecting them into /etc/hosts.
 #
 # Usage examples:
-#   sudo ./MacSiteBlock.sh block example.com
-#   sudo ./MacSiteBlock.sh unblock example.com
-#   sudo ./MacSiteBlock.sh status
-#   sudo ./MacSiteBlock.sh enable
-#   sudo ./MacSiteBlock.sh disable
-#   sudo ./MacSiteBlock.sh cleanup
-#   sudo ./MacSiteBlock.sh restore
-#   sudo ./MacSiteBlock.sh health
+#   sudo ./blocker.sh block example.com
+#   sudo ./blocker.sh unblock example.com
+#   sudo ./blocker.sh status
+#   sudo ./blocker.sh enable
+#   sudo ./blocker.sh disable
+#   sudo ./blocker.sh cleanup
+#   sudo ./blocker.sh restore
+#   sudo ./blocker.sh health
 #
 
 set -euo pipefail
@@ -111,7 +111,7 @@ acquire_lock() {
         local pid
         pid=$(cat "$LOCK_FILE")
         if kill -0 "$pid" 2>/dev/null; then
-            log "ERROR" "Another instance of MacSiteBlock is running (PID: $pid). Exiting."
+            log "ERROR" "Another instance of blocker is running (PID: $pid). Exiting."
             exit 1
         fi
     fi
@@ -235,9 +235,9 @@ block_domain() {
     fi
 
     {
-      echo "127.0.0.1     $domain    # MacSiteBlock"
-      echo "::1           $domain    # MacSiteBlock"
-      echo "fe80::1%lo0   $domain    # MacSiteBlock"
+      echo "127.0.0.1     $domain    # blocker"
+      echo "::1           $domain    # blocker"
+      echo "fe80::1%lo0   $domain    # blocker"
     } >> "$HOSTS_FILE"
 
     # Append domain to the tracked list (avoid duplicates here too)
@@ -271,7 +271,7 @@ unblock_domain() {
     validate_domain "$domain" || return 1
 
     # Remove lines for domain from /etc/hosts
-    sed -i '' "/[[:space:]]$domain[[:space:]]*# MacSiteBlock/d" "$HOSTS_FILE"
+    sed -i '' "/[[:space:]]$domain[[:space:]]*# blocker/d" "$HOSTS_FILE"
 
     # Also remove from the domain list
     sed -i '' "/^$domain$/d" "$DOMAINS_FILE"
